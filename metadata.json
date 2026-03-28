@@ -1,0 +1,5 @@
+{
+  "name": "EasyMove Kenya",
+  "description": "Premium booking and logistics services in Kenya. Fast, reliable, and professional transport, tours, and parcel delivery.",
+  "requestFramePermissions": ["geolocation"]
+}
