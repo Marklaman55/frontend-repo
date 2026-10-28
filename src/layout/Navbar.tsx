@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Truck, MapPin, Home, Menu, X, DollarSign, ShieldAlert } from 'lucide-react';
+import { Truck, MapPin, Home, Menu, X, DollarSign, ShieldAlert, Package } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -17,6 +17,7 @@ export default function Navbar() {
     { name: 'Services', path: '/book', icon: Truck },
     { name: 'Pricing', path: '/pricing', icon: DollarSign },
     { name: 'Tracking', path: '/track', icon: MapPin },
+    { name: 'My Bookings', path: '/my-bookings', icon: Package },
     { name: 'Admin', path: '/admin', icon: ShieldAlert },
   ];
 

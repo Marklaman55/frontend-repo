@@ -1,8 +1,0 @@
-{
-  "name": "easy-move-frontend",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build"
-  }
-}

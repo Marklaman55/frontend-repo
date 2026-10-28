@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Truck, Compass, User, CheckCircle2, Loader2, DollarSign, Calendar, Clock, MapPin, Package, ShieldCheck, Smartphone } from 'lucide-react';
+import { Truck, Compass, User, CheckCircle2, Loader2, DollarSign, Calendar, Clock, MapPin, Package, ShieldCheck, Smartphone, QrCode, ArrowRight } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { bookingService, paymentService, mpesaService } from '../services/api';
 
 const Bookings = () => {
@@ -80,10 +81,17 @@ const Bookings = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await bookingService.create({ ...formData, type, amount });
+      const result = await bookingService.create({ 
+        ...formData, 
+        type, 
+        amount,
+        dest_lat: -1.286389, // Mock Nairobi coordinates for ETA testing
+        dest_lng: 36.817223
+      });
       
-      if (data.success) {
-        const bookingId = data.id;
+      if (result.success) {
+        localStorage.setItem('customer_phone', formData.customer_phone);
+        const bookingId = result.id;
         
         // Trigger M-Pesa STK Push
         setIsWaitingForPayment(true);
@@ -143,10 +151,30 @@ const Bookings = () => {
           </div>
 
           {trackingId && (
-            <div className="bg-bg-light p-8 rounded-3xl mb-8 border border-stone-200">
-              <span className="text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em] block mb-3">Your Tracking ID</span>
-              <code className="text-3xl font-mono font-bold text-primary tracking-tighter">{trackingId}</code>
-              <p className="text-[10px] text-stone-400 mt-4">Save this ID to track your {type} in real-time.</p>
+            <div className="space-y-6 mb-8">
+              <div className="bg-bg-light p-8 rounded-3xl border border-stone-200">
+                <span className="text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em] block mb-3">Your Tracking ID</span>
+                <code className="text-3xl font-mono font-bold text-primary tracking-tighter">{trackingId}</code>
+                <p className="text-[10px] text-stone-400 mt-4">Save this ID to track your {type} in real-time.</p>
+              </div>
+
+              <div className="bg-stone-50 p-8 rounded-3xl border border-stone-200 flex flex-col items-center">
+                <span className="text-[10px] font-bold text-stone-400 uppercase tracking-[0.3em] block mb-4">Scan to Track</span>
+                <div className="bg-white p-4 rounded-2xl shadow-sm border border-stone-100">
+                  <QRCodeSVG 
+                    value={`${window.location.origin}/track/${trackingId}`}
+                    size={160}
+                    level="H"
+                    includeMargin={true}
+                  />
+                </div>
+                <Link 
+                  to={`/track/${trackingId}`}
+                  className="mt-6 text-primary font-bold text-sm flex items-center gap-2 hover:underline"
+                >
+                  Go to Tracking Page <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           )}
           

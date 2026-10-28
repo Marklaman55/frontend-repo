@@ -7,6 +7,8 @@ const api = axios.create({
 export const bookingService = {
   getAll: () => api.get('/bookings').then(res => res.data),
   getTrack: (trackingId: string) => api.get(`/bookings/track/${trackingId}`).then(res => res.data),
+  getByPhone: (phone: string) => api.get(`/bookings?phone=${phone}`).then(res => res.data),
+  submitRating: (id: number, rating: number) => api.post(`/bookings/${id}/rate`, { rating }).then(res => res.data),
   create: (data: any) => api.post('/bookings', data).then(res => res.data),
   update: (id: number, data: any) => api.patch(`/bookings/${id}`, data).then(res => res.data),
   delete: (id: number) => api.delete(`/bookings/${id}`).then(res => res.data),
@@ -14,8 +16,10 @@ export const bookingService = {
 
 export const driverService = {
   getAll: () => api.get('/drivers').then(res => res.data),
+  getBookings: (id: number) => api.get(`/drivers/${id}/bookings`).then(res => res.data),
   create: (formData: FormData) => api.post('/drivers', formData).then(res => res.data),
   update: (id: number, data: any) => api.patch(`/drivers/${id}`, data).then(res => res.data),
+  updateStatus: (id: number, status: string) => api.patch(`/drivers/${id}`, { status }).then(res => res.data),
   delete: (id: number) => api.delete(`/drivers/${id}`).then(res => res.data),
 };
 

@@ -192,12 +192,6 @@ const Admin = () => {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-bold serif italic text-secondary">FAQ Management</h2>
-        <button 
-          onClick={() => { setEditingFaq(null); setFaqForm({ question: '', answer: '' }); setShowFaqModal(true); }}
-          className="bg-primary-gradient text-white px-6 py-3 rounded-full font-bold flex items-center gap-2 shadow-lg shadow-primary/20"
-        >
-          <Plus className="w-4 h-4" /> Add FAQ
-        </button>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
@@ -312,6 +306,42 @@ const Admin = () => {
               <h2 className="text-4xl font-bold serif italic text-secondary capitalize">{activeTab}</h2>
             </div>
             <div className="flex gap-4">
+              {activeTab === 'drivers' && (
+                <button 
+                  onClick={() => setShowDriverModal(true)}
+                  className="flex items-center gap-2 bg-primary-gradient text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
+                >
+                  <Plus className="w-4 h-4" /> Add Driver
+                </button>
+              )}
+              {activeTab === 'gallery' && (
+                <button 
+                  onClick={() => {
+                    setEditingGallery(null);
+                    setGalleryForm({ category: 'tour', title: '', image: null });
+                    setShowGalleryModal(true);
+                  }}
+                  className="flex items-center gap-2 bg-primary-gradient text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
+                >
+                  <Plus className="w-4 h-4" /> Upload Image
+                </button>
+              )}
+              {activeTab === 'promos' && (
+                <button 
+                  onClick={() => setShowPromoModal(true)}
+                  className="flex items-center gap-2 bg-primary-gradient text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
+                >
+                  <Plus className="w-4 h-4" /> New Promotion
+                </button>
+              )}
+              {activeTab === 'faqs' && (
+                <button 
+                  onClick={() => { setEditingFaq(null); setFaqForm({ question: '', answer: '' }); setShowFaqModal(true); }}
+                  className="bg-primary-gradient text-white px-6 py-3 rounded-full font-bold flex items-center gap-2 shadow-lg shadow-primary/20"
+                >
+                  <Plus className="w-4 h-4" /> Add FAQ
+                </button>
+              )}
               <button onClick={refreshData} className="px-6 py-3 bg-white border border-stone-200 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-bg-light transition-all">
                 Refresh Data
               </button>
@@ -428,12 +458,6 @@ const Admin = () => {
               <div className="bg-white p-10 rounded-[3rem] border border-stone-200 shadow-sm">
                 <div className="flex justify-between items-center mb-10">
                   <h3 className="text-2xl font-bold serif italic text-secondary">Driver Fleet</h3>
-                  <button 
-                    onClick={() => setShowDriverModal(true)}
-                    className="flex items-center gap-2 bg-primary-gradient text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
-                  >
-                    <Plus className="w-4 h-4" /> Add Driver
-                  </button>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {drivers.map((driver: any) => (
@@ -545,16 +569,6 @@ const Admin = () => {
               <div className="bg-white p-10 rounded-[3rem] border border-stone-200 shadow-sm">
                 <div className="flex justify-between items-center mb-10">
                   <h3 className="text-2xl font-bold serif italic text-secondary">Gallery Management</h3>
-                  <button 
-                    onClick={() => {
-                      setEditingGallery(null);
-                      setGalleryForm({ category: 'tour', title: '', image: null });
-                      setShowGalleryModal(true);
-                    }}
-                    className="flex items-center gap-2 bg-primary-gradient text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
-                  >
-                    <Plus className="w-4 h-4" /> Upload Image
-                  </button>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   {galleryItems?.map((item: any) => (
@@ -595,12 +609,6 @@ const Admin = () => {
               <div className="bg-white p-10 rounded-[3rem] border border-stone-200 shadow-sm">
                 <div className="flex justify-between items-center mb-10">
                   <h3 className="text-2xl font-bold serif italic text-secondary">Promotions & Offers</h3>
-                  <button 
-                    onClick={() => setShowPromoModal(true)}
-                    className="flex items-center gap-2 bg-primary-gradient text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg shadow-primary/20"
-                  >
-                    <Plus className="w-4 h-4" /> New Promotion
-                  </button>
                 </div>
                 <div className="space-y-6">
                   {promotions.map((promo: any) => (

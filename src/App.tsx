@@ -9,6 +9,7 @@ const Tracking = lazy(() => import('./pages/Tracking'));
 const Pricing = lazy(() => import('./pages/Pricing'));
 const Admin = lazy(() => import('./pages/Admin'));
 const DriverDashboard = lazy(() => import('./pages/DriverDashboard'));
+const MyBookings = lazy(() => import('./pages/MyBookings'));
 
 const LoadingFallback = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
@@ -26,9 +27,11 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/book" element={<Bookings />} />
               <Route path="/track" element={<Tracking />} />
+              <Route path="/track/:trackingId" element={<Tracking />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/driver" element={<DriverDashboard />} />
+              <Route path="/my-bookings" element={<MyBookings />} />
             </Routes>
           </Suspense>
         </Layout>
